@@ -1,7 +1,5 @@
-name: Generate ADHD 1400-Char Key / [[1]]
+name: Generate ADHD 1400-Char Key
 on:
-  schedule:
-    - cron: '*/25 * * * *'
   workflow_dispatch:
 
 jobs:
@@ -9,13 +7,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Create Chaos Key
+      - name: Create Salted Chaos Key
         run: |
-          echo "25_min_pass_GO_PASTE_THIS_RIGHT_NOW_$(openssl rand -hex 700 | head -c 2390)" > active_key_1.txt
+          SALT="PRESSURE_WATER_PEGASUS_SATURN_HEXAGON_ISRAEL_bangaranga_eurovision"
+          TIME_STEP=$(python3 -c "import time; print(int(time.time() // 1500))")
+          REAL_HASH=$(echo -n "${TIME_STEP}${SALT}" | sha256sum | awk '{print $1}')
+          TRASH=$(openssl rand -hex 700 | head -c 1300)
+          echo "30minpass_${REAL_HASH}_${TRASH}" | head -c 1400 > active_key_1.txt
       - name: Commit and Push
         run: |
           git config --global user.name "Cron-Bot"
           git config --global user.email "bot@cron.com"
           git add active_key_1.txt
-          git commit -m "Rotate hash [25m interval]" || exit 0
+          git commit -m "Rotate hash with secure salt [15m interval]" || exit 0
           git push
