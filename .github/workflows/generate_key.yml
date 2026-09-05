@@ -1,4 +1,4 @@
-name: Generate ADHD 1400-Char Key
+name: Generate ADHD 1400-Char Key / [[1]]
 on:
   schedule:
     - cron: '*/25 * * * *'
@@ -16,6 +16,6 @@ jobs:
         run: |
           git config --global user.name "Cron-Bot"
           git config --global user.email "bot@cron.com"
-          git add active_key.txt
+          git add active_key_1.txt
           git commit -m "Rotate hash [25m interval]" || exit 0
           git push
