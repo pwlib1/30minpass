@@ -13,7 +13,7 @@ jobs:
           TIME_STEP=$(python3 -c "import time; print(int(time.time() // 1500))")
           REAL_HASH=$(echo -n "${TIME_STEP}${SALT}" | sha256sum | awk '{print $1}')
           TRASH=$(openssl rand -hex 700 | head -c 1300)
-          echo "30minpass_${REAL_HASH}_${TRASH}" | head -c 1400 > active_key_1.txt
+          echo "25_min_pass_GO_PASTE_THIS_RIGHT_NOW_${REAL_HASH}_${TRASH}" | head -c 1400 > active_key_1.txt
       - name: Commit and Push
         run: |
           git config --global user.name "Cron-Bot"
