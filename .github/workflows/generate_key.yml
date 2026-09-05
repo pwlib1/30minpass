@@ -1,0 +1,21 @@
+name: Generate ADHD 1400-Char Key
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+jobs:
+  update-key:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create Chaos Key
+        run: |
+          echo "30minpass_$(openssl rand -hex 700 | head -c 1390)" > active_key.txt
+      - name: Commit and Push
+        run: |
+          git config --global user.name "Cron-Bot"
+          git config --global user.email "bot@cron.com"
+          git add active_key.txt
+          git commit -m "Rotate hash [30m interval]" || exit 0
+          git push
