@@ -11,7 +11,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Create Chaos Key
         run: |
-          echo "25_min_pass_GO_PASTE_THIS_RIGHT_NOW_$(openssl rand -hex 700 | head -c 1390)" > active_key.txt
+          echo "25_min_pass_GO_PASTE_THIS_RIGHT_NOW_$(openssl rand -hex 700 | head -c 2390)" > active_key_1.txt
       - name: Commit and Push
         run: |
           git config --global user.name "Cron-Bot"
